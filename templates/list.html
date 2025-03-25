@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .nav{
+            width: 100%;
+            text-align: center;
+            background: #333;
+        }
+        a{
+            text-decoration: none;
+            color: #eee;
+        }
+        .title{
+            width: 1200px;
+            font-size: 24px;
+            margin: 40px auto 30px;
+            border-bottom: 2px solid #f89c33;
+        }
+        .title a{
+            display: inline-block;
+            padding: 12px 16px;
+            color: #000;
+        }
+        .title .active{
+            background: #f89c33;
+            color: #fff;
+        }
+        table{
+            width: 1200px;
+            margin: auto;
+        }
+        h3,p{
+            margin: 12px;
+        }
+        .more{
+            width: 120px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            border: 1px solid #ddd;
+            margin: 40px auto 60px;
+        }
+        .list a{
+            display: inline-block;
+            color: #000;
+            padding: 16px;
+        }
+        .footer{
+            background: #333;
+            color: #eee;
+            padding: 40px 0;
+            text-align: center;
+        }
+        .ban{
+            width: 1200px;
+            margin: 20px auto;
+        }
+        .footer a{
+            padding: 0 20px;
+        }
+        /* 修改视频容器样式 */
+        .video {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start; /* 改为左对齐 */
+            width: 1200px; /* 固定宽度与分类一致 */
+            margin: 0 auto; /* 居中 */
+            gap: 10px;
+        }
+
+        /* 调整每个视频项的宽度计算 */
+        .video .item {
+            flex: 0 0 calc(20% - 8px); /* 精确计算宽度 (10px*4 gaps / 5 items = 8px) */
+            box-sizing: border-box;
+            text-align: left;
+            padding: 10px;
+        }
+
+        /* 确保图片填满容器 */
+        .video .item img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <table class="nav">
+        <tr height="60px">
+            <td width="400px">
+                <h1><a href="./index.html">影视大全</a></h1>
+            </td>
+            <td> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td>
+                <a href="./index.html">首页</a>
+            </td>
+            <td>
+                <a href="./list.html">影视列表</a>
+            </td>
+            <td>
+                <a href="./juq.html">影视剧评</a>
+            </td>
+            <td>
+                <a href="details.html">影视介绍</a>
+            </td>
+            <td>
+                <a href="./login.html">登录</a>
+            </td>
+            <td>
+                <a href="./my.html">我的</a>
+            </td>
+        </tr>
+    </table>
+    <!-- <img width="100%" height="500" src="./img/0 (1).jpg" alt=""> -->
+    <div class="title">
+{#        <a class="active" href="">电视剧</a>#}
+{#        <a href="">电影</a>#}
+{#        <a href="">综艺</a>#}
+{#        <a href="">动漫</a>#}
+{#        <a href="">少儿</a>#}
+{#        <a href="">体育</a>#}
+        {% for c in category %}
+        	{% if forloop.first %}
+                <a class="active" href="">{{ c.categoryName }}</a>
+            {% else %}
+                <a href="">{{ c.categoryName }}</a>
+            {% endif %}
+        {% endfor %}
+
+    </div>
+    <div class="video">
+        {% for video in videos %}
+            <div class="item" video_id='{{ video.id }}'>
+                <img src="{{ video.cover.url }}">
+                <h3>{{ video.videoName }}</h3>
+                <p>
+                    {% for actor in video.actor.all %}
+                    	{{ actor.ActorName }}
+                    {% endfor %}
+                </p>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="more">查看更多</div>
+    <div class="footer">
+        <div class="ban">
+            <a href="#">优酷</a>|
+            <a href="#">土豆</a>|
+            <a href="#">UC浏览器</a>|
+            <a href="#">UC头条</a>|
+            <a href="#">阿里文学</a>|
+            <a href="#">虾米</a>|
+            <a href="#">阿里星球</a>|
+            <a href="#">阿里影业</a>|
+            <a href="#">游戏</a>|
+            <a href="#">鲸观</a>
+        </div>
+        <div>影视版权信息</div>
+    </div>
+</body>
+<script>
+    items = document.querySelectorAll('.item')
+    console.log(items)
+    for(var item of items){
+        item.addEventListener('click', function (){
+        video_id = this.getAttribute('video_id')
+            console.log(this, video_id)
+        window.location.href = `/video/details/${video_id}`
+    })
+    }
+
+</script>
+</html>

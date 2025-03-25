@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .nav{
+            width: 100%;
+            text-align: center;
+            background: #333;
+        }
+        a{
+            text-decoration: none;
+            color: #eee;
+        }
+        .title{
+            font-size: 30px;
+            font-weight: bold;
+            height: 60px;
+            line-height: 60px;
+            width: 1200px;
+            margin: 30px auto;
+        }
+        h2,p{
+            padding: 16px;
+        }
+        p{
+            line-height: 26px;
+        }
+        .ban{
+            width: 1200px;
+            margin: auto;
+        }
+        .footer{
+            background: #333;
+            color: #eee;
+            padding: 40px 0;
+            text-align: center;
+        }
+        .foot{
+            width: 1200px;
+            margin: 20px auto;
+        }
+        .footer a{
+            padding: 0 20px;
+        }
+    </style>
+</head>
+<body>
+    <table class="nav">
+        <tr height="60px">
+            <td width="400px">
+                <h1><a href="./index.html">影视大全</a></h1>
+            </td>
+            <td> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td>
+                <a href="./index.html">首页</a>
+            </td>
+            <td>
+                <a href="./list.html">影视列表</a>
+            </td>
+            <td>
+                <a href="./juq.html">影视剧评</a>
+            </td>
+            <td>
+                <a href="./details.html">影视介绍</a>
+            </td>
+            <td>
+                <a href="./login.html">登录</a>
+            </td>
+            <td>
+                <a href="./my.html">我的</a>
+            </td>
+        </tr>
+    </table>
+    <div class="title">剧情介绍 &nbsp;&nbsp;》&nbsp;{{ video.videoName }}</div>
+    <div class="ban">
+        <img style="float: left; margin-right: 20px;" width="600" src="./img/detail.jpg" alt="">
+        <h2>庆余年剧情介绍</h2>
+            {% autoescape off %}
+                {{ video.videoDetails }}
+            {% endautoescape %}
+
+        <h2>演员列表</h2>
+        <img>
+{#            <img width="190" src="./img/detail1.jpg" alt="">#}
+{#            <img width="190" src="./img/detail2.jpg" alt="">#}
+{#            <img width="190" src="./img/detail3.jpg" alt="">#}
+{#            <img width="190" src="./img/detail4.jpg" alt="">#}
+{#            <img width="190" src="./img/detail5.jpg" alt="">#}
+{#            <img width="190" src="./img/detail6.jpg" alt="">#}
+            {% for actor in video.actor.all %}
+                <img width="190" src="{{ actor.avatar.url }}">
+            {% endfor %}
+            
+        </p>
+    </div>
+    <div class="footer">
+        <div class="foot">
+            <a href="#">优酷</a>|
+            <a href="#">土豆</a>|
+            <a href="#">UC浏览器</a>|
+            <a href="#">UC头条</a>|
+            <a href="#">阿里文学</a>|
+            <a href="#">虾米</a>|
+            <a href="#">阿里星球</a>|
+            <a href="#">阿里影业</a>|
+            <a href="#">游戏</a>|
+            <a href="#">鲸观</a>
+        </div>
+        <div>影视版权信息</div>
+    </div>
+</body>
+</html>
