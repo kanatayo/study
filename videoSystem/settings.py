@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     # 富文本编辑器
     'django_ckeditor_5',
     'video',
+    'user'
 ]
 
 MIDDLEWARE = [
@@ -117,12 +118,16 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),  # 根目录下的 static 文件夹
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
-# DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -228,3 +233,6 @@ CKEDITOR_5_CONFIGS = {
 
 # Define a constant in settings.py to specify the custom upload file view
 # CK_EDITOR_5_UPLOAD_FILE_VIEW_NAME = "custom_upload_file"
+
+#  自定义用户授权类
+AUTH_USER_MODEL = "user.CustomerUser"

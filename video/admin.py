@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Actor, Video, Category
+from .models import Actor, Video, Category, Comment
 
 
 # Register your models here.
@@ -17,4 +17,9 @@ class VideoAdmin(admin.ModelAdmin):
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
     pass

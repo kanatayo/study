@@ -1,0 +1,167 @@
+{% extends "navigation.html"%}
+
+{% block style %}
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    a{
+        text-decoration: none;
+        color: #eee;
+    }
+    .title{
+        font-size: 30px;
+        font-weight: bold;
+        height: 60px;
+        line-height: 60px;
+        width: 1200px;
+        margin: 30px auto;
+    }
+    h2,p{
+        padding: 16px;
+    }
+    p{
+        line-height: 26px;
+    }
+    .ban{
+        width: 1200px;
+        margin: auto;
+    }
+    .footer{
+        background: #333;
+        color: #eee;
+        padding: 40px 0;
+        text-align: center;
+    }
+    .foot{
+        width: 1200px;
+        margin: 20px auto;
+    }
+    .footer a{
+        padding: 0 20px;
+    }
+    .comment{
+        color: crimson;
+    }
+
+
+
+  body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+  }
+  .comment-section {
+    width: 80%;
+    max-width: 1200px;
+    margin: 50px auto;
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  }
+  .comment {
+    position: relative; /* 设置相对定位，方便子元素绝对定位 */
+    border-bottom: 1px solid #ddd;
+    padding: 20px;
+  }
+  .comment:last-child {
+    border-bottom: none;
+  }
+  .comment h3 {
+    margin-top: 0;
+    font-size: 1.5em;
+    color: #333;
+  }
+  .comment .meta {
+    color: #777;
+    font-size: 0.9em;
+    margin-bottom: 10px;
+  }
+  .comment p {
+    margin: 0;
+  }
+  .comment .content {
+    line-height: 1.8;
+  }
+
+  /* 用户信息样式 */
+  .user-info {
+    position: absolute; /* 绝对定位到右上角 */
+    top: 20px;
+    right: 20px;
+    text-align: right;
+  }
+  .user-info img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%; /* 圆形头像 */
+    object-fit: cover; /* 确保头像比例不变 */
+  }
+  .user-info .name {
+    display: block;
+    margin-top: 5px;
+    font-size: 1em;
+    color: #333;
+    font-weight: bold;
+  }
+{% endblock %}
+
+{% block main %}
+    <div class="title">剧情介绍 &nbsp;&nbsp;》&nbsp;{{ video.videoName }}</div>
+    <div class="ban">
+        <h2>剧情介绍</h2>
+            {% autoescape off %}
+                {{ video.videoDetails }}
+            {% endautoescape %}
+
+        <h2>演员列表</h2>
+{#            <img width="190" src="./img/detail1.jpg" alt="">#}
+{#            <img width="190" src="./img/detail2.jpg" alt="">#}
+{#            <img width="190" src="./img/detail3.jpg" alt="">#}
+{#            <img width="190" src="./img/detail4.jpg" alt="">#}
+{#            <img width="190" src="./img/detail5.jpg" alt="">#}
+{#            <img width="190" src="./img/detail6.jpg" alt="">#}
+            {% for actor in video.actor.all %}
+                <img width="190" src="{{ actor.avatar.url }}">
+            {% endfor %}
+        <h2></h2>
+        <form>
+
+        </form>
+    </div>
+
+        <div class="comment-section">
+            <div class="comment">
+{#                <h3>评论标题</h3>#}
+{#                <div class="meta">发布于 2025年3月27日</div>#}
+{#                <div class="content">#}
+{#                    <p>这里是用户的长篇评论内容。可以包括多段文字，表达对文章或主题的深入见解。</p>#}
+{#                </div>#}
+{##}
+{#                <!-- 用户信息 -->#}
+{#                <div class="user-info">#}
+{#                    <img src="https://via.placeholder.com/50" alt="用户头像">#}
+{#                    <span class="name">用户名</span>#}
+{#                </div>#}
+
+
+                {% for comment in comments %}
+                    <h3>{{ comment.commentTitle }}</h3>
+                    <div class="meta">发布于 {{ comment.commentDate }}</div>
+                    <div class="content">
+                      <p>{{ comment.commentContent }}</p>
+                    </div>
+                    <div class="user-info">
+                        <img src="{{ request.user.img.url }}" alt="用户头像">
+                        <span class="name">{{ request.user.get_username }}</span>
+                    </div>
+                {% endfor %}
+            </div>
+
+
+            <h3 class="goto_comment"><a href="/video/comment/{{ video_id }}" class="comment">去发表</a></h3>
+        </div>
+
+
+{% endblock %}

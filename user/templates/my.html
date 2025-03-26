@@ -1,0 +1,136 @@
+{% extends "navigation.html"%}
+
+{% block style %}
+    *{
+        margin: 0;
+        padding: 0;
+    }
+
+    a{
+        text-decoration: none;
+        color: #eee;
+    }
+    h2{
+        width: 1200px;
+        margin: 20px auto;
+        text-align: center;
+    }
+    .img{
+        width: 100px;
+        margin: 30px auto 40px;
+        text-align: center;
+    }
+    .img img{
+        margin-bottom: 20px;
+        border-radius: 50%;
+    }
+    table{
+        width: 1200px;
+        margin: auto;
+    }
+    table p{
+        width: 280px;
+    }
+    .more{
+        width: 120px;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+        border: 1px solid #ddd;
+        margin: 40px auto 60px;
+    }
+    .footer{
+        background: #333;
+        color: #eee;
+        padding: 40px 0;
+        text-align: center;
+    }
+    .ban{
+        width: 1200px;
+        margin: 20px auto;
+    }
+    .footer a{
+        padding: 0 20px;
+    }
+        /* 修改视频容器样式 */
+    .video {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start; /* 改为左对齐 */
+        width: 1200px; /* 固定宽度与分类一致 */
+        margin: 0 auto; /* 居中 */
+        gap: 10px;
+    }
+
+    /* 调整每个视频项的宽度计算 */
+    .video .item {
+        flex: 0 0 calc(20% - 8px); /* 精确计算宽度 (10px*4 gaps / 5 items = 8px) */
+        box-sizing: border-box;
+        text-align: left;
+        padding: 10px;
+    }
+
+    /* 确保图片填满容器 */
+    .video .item img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+    .delete_history{
+        color: crimson;
+        font-size: 12px;
+    }
+{% endblock %}
+
+{% block main %}
+        <div class="img">
+        <img width="100" height="100" src="{{ request.user.img.url }}" alt="">
+        {{ request.user.get_username }}
+    </div>
+    <h2>我的观看记录</h2>
+
+    <div class="video">
+        {% for video in videos %}
+            <div class="item" video_id='{{ video.id }}'>
+                <img src="{{ video.cover.url }}" class="itemImg">
+                <h3>{{ video.videoName }}</h3>
+                <p>
+                    {% for actor in video.actor.all %}
+                    	{{ actor.ActorName }}
+                    {% endfor %}
+                </p>
+            <a href="/video/delete_history/{{ video.id }}" class="delete_history">删除记录</a>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="footer">
+        <div class="ban">
+            <a href="#">优酷</a>|
+            <a href="#">土豆</a>|
+            <a href="#">UC浏览器</a>|
+            <a href="#">UC头条</a>|
+            <a href="#">阿里文学</a>|
+            <a href="#">虾米</a>|
+            <a href="#">阿里星球</a>|
+            <a href="#">阿里影业</a>|
+            <a href="#">游戏</a>|
+            <a href="#">鲸观</a>
+        </div>
+        <div>影视版权信息</div>
+    </div>
+{% endblock %}
+
+{% block js %}
+<script>
+    items = document.querySelectorAll('.itemImg')
+    console.log(items)
+    for(var item of items){
+        item.addEventListener('click', function (){
+        video_id = this.getAttribute('video_id')
+            console.log(this, video_id)
+        window.location.href = `/video/details/${video_id}`
+    })
+    }
+</script>
+{% endblock %}

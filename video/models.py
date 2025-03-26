@@ -1,6 +1,10 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django_ckeditor_5.fields import CKEditor5Field
+
+from user.models import CustomerUser
+
+
 # Create your models here.
 
 
@@ -31,4 +35,12 @@ class Video(models.Model):
         return self.videoName
 
 
+class Comment(models.Model):
+    commentTitle = models.CharField(max_length=50, verbose_name='评论标题', null=True, blank=True)
+    commentContent = CKEditor5Field(verbose_name='评论内容', config_name='extends')
+    video = models.ForeignKey(Video, related_name='comment', on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomerUser, related_name='comment', on_delete=models.CASCADE)
+    commentDate = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return str(self.id)

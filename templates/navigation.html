@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        {% block style %}
+
+        {% endblock %}
+                /* 导航栏样式优化 */
+        .container-fluid {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 0 5%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 80px;
+        }
+
+        .navbar-header {
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+
+        .navbar-brand {
+            font-size: 28px;
+            font-weight: bold;
+            color: #fff;
+            text-decoration: none;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .navbar-brand:hover {
+            color: #ff4d4d;
+            transform: translateY(-2px);
+        }
+
+        /* 导航菜单容器 */
+        .navbar-collapse {
+            display: flex;
+            align-items: center;
+            height: 100%;
+            flex-grow: 1;
+            justify-content: flex-end;
+        }
+
+        /* 主菜单项 */
+        .nav.navbar-nav {
+            display: flex;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            height: 100%;
+            align-items: center;
+        }
+
+        .nav.navbar-nav > li {
+            {#height: 100%;#}
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .nav.navbar-nav > li > a {
+            color: #e3f2fd;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            padding: 0 20px;
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+        }
+
+        .nav.navbar-nav > li > a:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav.navbar-nav > li.active > a {
+            color: #ff4d4d;
+            font-weight: 600;
+        }
+
+        .nav.navbar-nav > li > a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 20px;
+            width: calc(100% - 40px);
+            height: 3px;
+            background-color: #ff4d4d;
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .nav.navbar-nav > li.active > a::after,
+        .nav.navbar-nav > li > a:hover::after {
+            transform: scaleX(1);
+        }
+
+        /* 搜索框样式 */
+        .navbar-form {
+            display: flex;
+            margin: 0 30px;
+            height: 40px;
+        }
+
+        .form-control {
+            height: 100%;
+            padding: 0 15px;
+            border: none;
+            border-radius: 20px 0 0 20px;
+            width: 220px;
+            font-size: 14px;
+            transition: all 0.3s;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+
+        .form-control:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.2);
+            width: 280px;
+        }
+
+        .btn-default {
+            height: 100%;
+            padding: 0 20px;
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            border-radius: 0 20px 20px 0;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .btn-default:hover {
+            background-color: #ff6b6b;
+        }
+
+        /* 右侧菜单 */
+        .navbar-nav.navbar-right {
+            display: flex;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            height: 100%;
+            align-items: center;
+        }
+
+        .navbar-nav.navbar-right > li {
+            margin-left: 15px;
+        }
+
+        .navbar-nav.navbar-right > li > a {
+            padding: 8px 20px;
+            border-radius: 20px;
+            transition: all 0.3s;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        /* 登录按钮样式 */
+        .navbar-nav.navbar-right > li > a[href="/user/login/"] {
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .navbar-nav.navbar-right > li > a[href="/user/login/"]:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* 注册按钮样式 */
+        .navbar-nav.navbar-right > li > a[href="/user/register/"] {
+            background-color: #ff4d4d;
+            color: white;
+        }
+
+        .navbar-nav.navbar-right > li > a[href="/user/register/"]:hover {
+            background-color: #ff6b6b;
+        }
+
+        /* 下拉菜单 */
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: #fff;
+            min-width: 180px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            border-radius: 8px;
+            padding: 10px 0;
+            display: none;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-menu li {
+            list-style: none;
+        }
+
+        .dropdown-menu a {
+            color: #333;
+            padding: 10px 20px;
+            text-decoration: none;
+            display: block;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+
+        .dropdown-menu a:hover {
+            background-color: #f5f5f5;
+            color: #ff4d4d;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 1200px) {
+            .container-fluid {
+                padding: 0 20px;
+            }
+
+            .form-control {
+                width: 180px;
+            }
+
+            .form-control:focus {
+                width: 220px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .navbar-collapse {
+                display: none;
+            }
+
+            /* 这里可以添加移动端菜单样式 */
+        }
+                /* 头像样式 */
+        .avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 10px;
+            object-fit: cover; /* 确保图片不会变形 */
+        }
+
+    </style>
+    
+</head>
+<body>
+    <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/video/index/">影视大全</a>
+        </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="/video/index/">首页 <span class="sr-only"></span></a></li>
+                <li><a href="/video/list/">影视列表</a></li>
+            </ul>
+            <form class="navbar-form navbar-left">
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="请输入关键词">
+                </div>
+                <button type="submit" class="btn btn-default">搜索</button>
+            </form>
+            <ul class="nav navbar-nav navbar-right">
+                {# 判断是否登录#}
+                {% if request.user.is_authenticated %}
+                    {#  登录了   #}
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <img src="{{ request.user.img.url }}" alt="用户头像" class="avatar">
+                            <span class="caret">{{ request.user.get_username}}</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/user/my/">个人中心</a></li>
+                            <li><a href="/user/logout/">退出账号</a></li>
+                        </ul>
+                    </li>
+                {% else %}
+                    {#  没登录   #}
+                    <li><a href="/user/register/">注册</a></li>
+                    <li><a href="/user/login/">登录</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+        {% block main %}
+        {% endblock %}
+
+        {% block js %}
+        {% endblock %}
+</body>
+</html>
